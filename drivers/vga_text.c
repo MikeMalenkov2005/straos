@@ -1,4 +1,4 @@
-#include "../utils/types.h"
+#include <stdint.h>
 #include "./port_io.h"
 
 #define	VIDEO_MEMORY	(char*)0xB8000
@@ -74,5 +74,33 @@ void InvertColor(int x, int y)
 	uint16_t pos;
 	pos = y * VGA_WIDTH + x;
 	InvertColorRaw(pos);
+	return;
+}
+
+void PrintStringPaw(uint16_t pos, const char* str, uint8_t col)
+{
+	for(int i = 0; pos + i < 2400 && str[i] != 0; i++)
+	{
+		char* addr = VIDEO_MEMORY + 2 * (pos + i);
+		*addr++ = str[i];
+		*addr = col;
+	}
+	return;
+}
+
+void PrintString(int x, int y, const char* str, uint8_t col)
+{
+	PrintStringPaw(x + y * 80, str, col);
+	return;
+}
+
+void ClearScreen(char chr, uint8_t col)
+{
+	for(int i = 0; i < 2400; i++)
+	{
+		char* addr = VIDEO_MEMORY + 2 * i;
+		*addr++ = chr;
+		*addr = col;
+	}
 	return;
 }

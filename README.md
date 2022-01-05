@@ -1,6 +1,16 @@
 # StraOS
-The name StraOS was created because of the joke.<br />
-## What is StraOs
-StraOs is a terminal based operating system, but it also supports a grafical mode for applications.<br />
-## Warning!
-If you want to compile this OS, you can use run.sh on linux or WSL, but it requires nasm, gcc and qemu installed
+## Why this name?
+The name 'StraOS' was created because of the joke.<br />
+## What is StraOS?
+StraOS is a text based operating system.<br />
+## Future of StraOS
+StraOS will use terminal as main UI.
+But it is going to support graphycal applications too.
+## Changelog
+### Changed
++ Bootloader (major)<br />
+### Added
++ Heap<br />
++ Makefile<br />
+### Removed
++ run.sh<br />
