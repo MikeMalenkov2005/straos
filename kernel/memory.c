@@ -7,13 +7,13 @@ struct HeapBlock
 {
 	struct HeapBlock* next;
 	struct HeapBlock* prev;
-	int info;
+	int32_t info;
 }__attribute__((packed));
 
 struct Heap
 {
 	struct HeapBlock* base;
-	int size;
+	int32_t size;
 }__attribute__((packed));
 
 bool IsFree(struct HeapBlock* block)
@@ -23,7 +23,7 @@ bool IsFree(struct HeapBlock* block)
 
 struct Heap HEAP = { NULL, 0 };
 
-void InitHeap(void* base, int size)
+void InitHeap(void* base, int32_t size)
 {
 	HEAP.size = size & 0x7FFFFFFF;
 	HEAP.base = (struct HeapBlock*) base;
@@ -33,9 +33,9 @@ void InitHeap(void* base, int size)
 	return;
 }
 
-void* Allocate(int size)
+void* Allocate(int32_t size)
 {
-	int trueSize = size & 0x7FFFFFFF;
+	int32_t trueSize = size & 0x7FFFFFFF;
 	if(HEAP.base == NULL || HEAP.size == 0)return NULL;
 	struct HeapBlock* block = HEAP.base;
 	struct HeapBlock* check = NULL;

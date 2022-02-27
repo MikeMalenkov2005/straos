@@ -1,8 +1,24 @@
-#ifndef KEYBOARD_H
-#define KEYBOARD_H
+#include <stdint.h>
+#include <stddef.h>
+#include "./port_io.h"
+#include "../cpu/irq.h"
 
-char GetChar(unsigned char scancode);
-void InstallHandler(void (*handler)(unsigned char scancode));
-void init();
+//TODO Implement GetChar!
+char GetChar(uint8_t scancode)
+{
+	return 0;
+}
 
-#endif
+void (*KEYBOARD_HANDLER)(uint8_t scancode) = NULL;
+
+void KeyboardScanner(struct regs *r)
+{
+	uint8_t scancode = inb(0x60);
+	KEYBOARD_HANDLER(scancode);
+}
+
+void InstallKeyboardHandler(void (*handler)(uint8_t scancode))
+{
+	irq_install_handler(1, KeyboardScanner);
+	KEYBOARD_HANDLER = handler;
+}

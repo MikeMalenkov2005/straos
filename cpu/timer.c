@@ -1,4 +1,4 @@
-#include "../utils/types.h"
+#include <stdint.h>
 #include "../drivers/port_io.h"
 #include "./irq.h"
 

@@ -1,27 +1,7 @@
-#include "../utils/types.h"
-#include "../utils/structs.h"
-#include "./vga_text.h"
-#include ".port_io.h"
-#include "../cpu/irq.h"
+#ifndef KEYBOARD_H
+#define KEYBOARD_H
 
-//TODO Implement GetChar!
-char GetChar(unsigned char scancode)
-{
-	return 0;
-}
+char GetChar(uint8_t scancode);
+void InstallKeyboardHandler(void (*handler)(uint8_t scancode));
 
-void InstallHandler(void (*handler)(unsigned char scancode))
-{
-	
-}
-
-void KeyboardScanner(struct regs *r)
-{
-	unsigned char scancode = inb(0x60);
-	//TODO
-}
-
-void init()
-{
-	irq_install_handler(1, KeyboardScanner);
-}
+#endif

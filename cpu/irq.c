@@ -1,23 +1,23 @@
-#include "../utils/types.h"
+#include <stdint.h>
 #include "../drivers/port_io.h"
 #include "./idt.h"
 
-extern "C" void irq0();
-extern "C" void irq1();
-extern "C" void irq2();
-extern "C" void irq3();
-extern "C" void irq4();
-extern "C" void irq5();
-extern "C" void irq6();
-extern "C" void irq7();
-extern "C" void irq8();
-extern "C" void irq9();
-extern "C" void irq10();
-extern "C" void irq11();
-extern "C" void irq12();
-extern "C" void irq13();
-extern "C" void irq14();
-extern "C" void irq15();
+void irq0();
+void irq1();
+void irq2();
+void irq3();
+void irq4();
+void irq5();
+void irq6();
+void irq7();
+void irq8();
+void irq9();
+void irq10();
+void irq11();
+void irq12();
+void irq13();
+void irq14();
+void irq15();
 
 void *irq_routines[16] =
 {
@@ -72,11 +72,11 @@ void irq_install()
 
 int currentInterrupt = -1;
 
-extern "C" void _irq_handler(struct regs *r)
+void _irq_handler(struct regs *r)
 {
 	currentInterrupt = r -> int_no;
 	void (*handler)(struct regs *r);
-	handler = (void (*)(regs*))irq_routines[r->int_no - 32];
+	handler = irq_routines[r->int_no - 32];
 	if (handler)
 	{
 		handler(r);
@@ -88,7 +88,8 @@ extern "C" void _irq_handler(struct regs *r)
 	outb(0x20, 0x20);
 }
 
-void irq_wait(int n){
-    while(currentInterrupt != n){};
-    currentInterrupt = -1;
+void irq_wait(int n)
+{
+	while(currentInterrupt != n){};
+	currentInterrupt = -1;
 }
